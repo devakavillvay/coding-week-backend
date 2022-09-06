@@ -35,6 +35,7 @@ contract VillvayCerts is Ownable, EIP712 {
         }
         return false;
     }
+
     function _hash(
       Certificate calldata cert
     ) internal view returns (bytes32) {
@@ -45,5 +46,10 @@ contract VillvayCerts is Ownable, EIP712 {
                     cert.studentAddress, keccak256(bytes(cert.name)), keccak256(bytes(cert.qualification)), keccak256(bytes(cert.major)), keccak256(bytes(cert.ipfsHash))
         )));
         return digest;
+    }
+    
+    function _validateSignature(bytes32 digest, bytes memory signature) internal pure returns (address) {
+        address signer = ECDSA.recover(digest, signature);
+        return signer;
     }
 }

@@ -27,4 +27,12 @@ contract VillvayCerts is Ownable, EIP712 {
     function getCertificateByStudent(address student) public view returns (Certificate memory){
         return studentCerts[student];
     }    
+
+    function verifyCert(Certificate calldata cert, bytes calldata signature) public view returns (bool) {
+        address signer = _validateSignature(_hash(cert), signature);
+        if(signer == owner()){
+            return true;
+        }
+        return false;
+    }
 }

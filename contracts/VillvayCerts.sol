@@ -17,4 +17,14 @@ contract VillvayCerts is Ownable, EIP712 {
     constructor() EIP712("The University of Villvay", "1.0") {}
 
     mapping(address => Certificate) private studentCerts;
+
+    function grantCertificate(address student, Certificate calldata details) public onlyOwner{
+        require(_msgSender() == owner(), "You are not the University!!! >:(");
+        studentCerts[student] = details;
+        return;
+    }
+
+    function getCertificateByStudent(address student) public view returns (Certificate memory){
+        return studentCerts[student];
+    }    
 }

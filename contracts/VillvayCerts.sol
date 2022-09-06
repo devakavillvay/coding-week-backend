@@ -35,4 +35,15 @@ contract VillvayCerts is Ownable, EIP712 {
         }
         return false;
     }
+    function _hash(
+      Certificate calldata cert
+    ) internal view returns (bytes32) {
+        bytes32 digest = _hashTypedDataV4(
+            keccak256(
+                abi.encode(
+                    keccak256("Certificate(address studentAddress,string name,string qualification,string major,string ipfsHash)"),
+                    cert.studentAddress, keccak256(bytes(cert.name)), keccak256(bytes(cert.qualification)), keccak256(bytes(cert.major)), keccak256(bytes(cert.ipfsHash))
+        )));
+        return digest;
+    }
 }

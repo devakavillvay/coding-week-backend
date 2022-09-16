@@ -3,7 +3,7 @@ import "@nomicfoundation/hardhat-toolbox";
 import "dotenv/config";
 
 const config: HardhatUserConfig = {
-    solidity: "0.8.9",
+    solidity: "0.8.16",
     networks: {
         rinkeby: {
             url: process.env.RINKEBY_URL,
